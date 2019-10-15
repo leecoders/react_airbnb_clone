@@ -10,14 +10,13 @@ const NavWrapper = styled.div`
 const ButtonContainer = styled.div`
   position: relative;
   top: 50%;
-  left: 1.5rem;
   transform: translateY(-50%);
 `;
 
 const Button = styled.button`
   position: relative;
   display: inline-block;
-  margin-left: 1.5rem;
+  margin-left: 1rem;
   height: 3.2rem;
   width: auto;
   padding: 0 1.5rem;
