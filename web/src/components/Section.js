@@ -9,7 +9,7 @@ const SectionWrapper = styled.div`
 `;
 
 const Section = () => {
-  return <SectionWrapper>ㅁㄴㅇ라니ㅏㅇ러</SectionWrapper>;
+  return <SectionWrapper></SectionWrapper>;
 };
 
 export default Section;
