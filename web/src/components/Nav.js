@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import styles from "../styles";
 
 const NavWrapper = styled.div`
   position: relative;
   height: 4.8rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid ${styles.borderColor};
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.06);
 `;
 
 const ButtonContainer = styled.div`
@@ -20,17 +22,18 @@ const Button = styled.button`
   height: 3.2rem;
   width: auto;
   padding: 0 1.5rem;
-  border: 1px solid #dee2e6;
-  font-size: 1.4rem;
-  font-weight: 400;
+  border: 1px solid ${styles.borderColor};
+  font-family: "KimNamyun", sans-serif;
+  font-size: 2rem;
   border-radius: 0.4rem;
-  color: #484848;
+  color: ${styles.textColor};
   outline: none;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
   &:hover {
-    background: #f1f3f5;
+    background: ${styles.buttonHoverColor};
   }
   &:active {
-    background: #38d9a9;
+    background: ${styles.primaryColor};
     color: #ffffff;
   }
 `;

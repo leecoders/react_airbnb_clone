@@ -3,8 +3,11 @@ import Header from "./Header.js";
 import Nav from "./Nav.js";
 import Section from "./Section.js";
 import styled from "styled-components";
+import styles from "../styles";
 
-const AppWrapper = styled.div``;
+const AppWrapper = styled.div`
+  ${styles.handWrittenFontFace};
+`;
 
 const HeaderContainer = styled.div`
   z-index: 99;
