@@ -39,6 +39,14 @@ const Button = styled.button`
       props.isClicked ? styles.primaryColor : styles.buttonHoverColor};
   }
 `;
+const BackgroundShadow = styled.div`
+  position: fixed;
+  top: 4rem;
+  display: ${props => (props.isModalOn ? "block" : "none")}
+  width: 500rem;
+  height: 500rem;
+  background: rgba(255, 255, 255, 0.85);
+`;
 
 const Nav = () => {
   const [visibleForDate, setVisibleForDate] = useState(false);
@@ -50,10 +58,14 @@ const Nav = () => {
     if (visibleForPersonnel) setVisibleForPersonnel(false);
     if (visibleForCost) setVisibleForCost(false);
   };
+  const checkModalOn = () => {
+    return visibleForDate || visibleForPersonnel || visibleForCost;
+  };
 
   return (
     <NavWrapper>
       <ButtonContainer>
+        <BackgroundShadow isModalOn={checkModalOn()} onClick={setAllToFalse} />
         <ButtonWrapper>
           <Button
             isClicked={visibleForDate}
