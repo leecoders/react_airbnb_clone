@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import styles from "../styles";
+import DatePicker from "./DatePicker.js";
+import PersonnelPicker from "./PersonnelPicker.js";
+import CostPicker from "./CostPicker.js";
 
 const NavWrapper = styled.div`
   position: relative;
@@ -39,12 +42,49 @@ const Button = styled.button`
 `;
 
 const Nav = () => {
+  const [visibleForDate, setVisibleForDate] = useState(false);
+  const [visibleForPersonnel, setVisibleForPersonnel] = useState(false);
+  const [visibleForCost, setVisibleForCost] = useState(false);
+
+  const setAllToFalse = () => {
+    if (visibleForDate) setVisibleForDate(false);
+    if (visibleForPersonnel) setVisibleForPersonnel(false);
+    if (visibleForCost) setVisibleForCost(false);
+  };
+
   return (
     <NavWrapper>
       <ButtonContainer>
-        <Button>날짜</Button>
-        <Button>인원</Button>
-        <Button>가격</Button>
+        <Button
+          alt="date"
+          onClick={() => {
+            setAllToFalse();
+            setVisibleForDate(!visibleForDate);
+          }}
+        >
+          날짜
+        </Button>
+        <Button
+          alt="personnel"
+          onClick={() => {
+            setAllToFalse();
+            setVisibleForPersonnel(!visibleForPersonnel);
+          }}
+        >
+          인원
+        </Button>
+        <Button
+          alt="cost"
+          onClick={() => {
+            setAllToFalse();
+            setVisibleForCost(!visibleForCost);
+          }}
+        >
+          가격
+        </Button>
+        {visibleForDate && <DatePicker />}
+        {visibleForPersonnel && <PersonnelPicker />}
+        {visibleForCost && <CostPicker />}
       </ButtonContainer>
     </NavWrapper>
   );

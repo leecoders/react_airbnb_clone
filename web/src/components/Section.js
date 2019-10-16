@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const SectionWrapper = styled.div`
   position: relative;
-  top: 12.9rem;
+  top: 11.4rem;
   height: 505rem;
   background: #ffffff;
 `;
