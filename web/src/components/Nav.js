@@ -18,10 +18,14 @@ const ButtonContainer = styled.div`
   transform: translateY(-50%);
 `;
 
-const Button = styled.button`
+const ButtonWrapper = styled.span`
   position: relative;
   display: inline-block;
   margin-left: 1rem;
+`;
+
+const Button = styled.button`
+  position: relative;
   height: 3.2rem;
   width: auto;
   padding: 0 1.5rem;
@@ -55,36 +59,42 @@ const Nav = () => {
   return (
     <NavWrapper>
       <ButtonContainer>
-        <Button
-          alt="date"
-          onClick={() => {
-            setAllToFalse();
-            setVisibleForDate(!visibleForDate);
-          }}
-        >
-          날짜
-        </Button>
-        <Button
-          alt="personnel"
-          onClick={() => {
-            setAllToFalse();
-            setVisibleForPersonnel(!visibleForPersonnel);
-          }}
-        >
-          인원
-        </Button>
-        <Button
-          alt="cost"
-          onClick={() => {
-            setAllToFalse();
-            setVisibleForCost(!visibleForCost);
-          }}
-        >
-          가격
-        </Button>
-        {visibleForDate && <DatePicker />}
-        {visibleForPersonnel && <PersonnelPicker />}
-        {visibleForCost && <CostPicker />}
+        <ButtonWrapper>
+          <Button
+            alt="date"
+            onClick={() => {
+              setAllToFalse();
+              setVisibleForDate(!visibleForDate);
+            }}
+          >
+            날짜
+          </Button>
+          {visibleForDate && <DatePicker />}
+        </ButtonWrapper>
+        <ButtonWrapper>
+          <Button
+            alt="personnel"
+            onClick={() => {
+              setAllToFalse();
+              setVisibleForPersonnel(!visibleForPersonnel);
+            }}
+          >
+            인원
+          </Button>
+          {visibleForPersonnel && <PersonnelPicker />}
+        </ButtonWrapper>
+        <ButtonWrapper>
+          <Button
+            alt="cost"
+            onClick={() => {
+              setAllToFalse();
+              setVisibleForCost(!visibleForCost);
+            }}
+          >
+            가격
+          </Button>
+          {visibleForCost && <CostPicker />}
+        </ButtonWrapper>
       </ButtonContainer>
     </NavWrapper>
   );
