@@ -11,19 +11,16 @@ const NavWrapper = styled.div`
   border-bottom: 1px solid ${styles.borderColor};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.06);
 `;
-
 const ButtonContainer = styled.div`
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 `;
-
 const ButtonWrapper = styled.span`
   position: relative;
   display: inline-block;
   margin-left: 1rem;
 `;
-
 const Button = styled.button`
   position: relative;
   height: 3.2rem;
@@ -33,15 +30,13 @@ const Button = styled.button`
   font-family: "KimNamyun", sans-serif;
   font-size: 2rem;
   border-radius: 0.4rem;
-  color: ${styles.textColor};
+  color: ${props => (props.isClicked ? "#ffffff" : styles.textColor)};
+  background: ${props => (props.isClicked ? styles.primaryColor : "#ffffff")};
   outline: none;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
   &:hover {
-    background: ${styles.buttonHoverColor};
-  }
-  &:active {
-    background: ${styles.primaryColor};
-    color: #ffffff;
+    background: ${props =>
+      props.isClicked ? styles.primaryColor : styles.buttonHoverColor};
   }
 `;
 
@@ -61,6 +56,7 @@ const Nav = () => {
       <ButtonContainer>
         <ButtonWrapper>
           <Button
+            isClicked={visibleForDate}
             alt="date"
             onClick={() => {
               setAllToFalse();
@@ -73,6 +69,7 @@ const Nav = () => {
         </ButtonWrapper>
         <ButtonWrapper>
           <Button
+            isClicked={visibleForPersonnel}
             alt="personnel"
             onClick={() => {
               setAllToFalse();
@@ -85,6 +82,7 @@ const Nav = () => {
         </ButtonWrapper>
         <ButtonWrapper>
           <Button
+            isClicked={visibleForCost}
             alt="cost"
             onClick={() => {
               setAllToFalse();
