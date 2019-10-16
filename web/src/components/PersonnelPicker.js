@@ -4,11 +4,12 @@ import styles from "../styles";
 
 const PersonnelPickerWrapper = styled.div`
   position: absolute;
-  top: 5rem;
+  top: 3.8rem;
   width: 57.5rem;
   height: 34rem;
-  border: 1px solid yellow;
   background: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px;
+  border-radius: 0.8rem;
 `;
 
 const PersonnelPicker = () => {

@@ -4,12 +4,12 @@ import styles from "../styles";
 
 const DatePickerWrapper = styled.div`
   position: absolute;
-  top: 5rem;
-  left: 0rem;
+  top: 3.8rem;
   width: 57.5rem;
   height: 34rem;
-  border: 1px solid black;
   background: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px;
+  border-radius: 0.8rem;
 `;
 
 const DatePicker = () => {
