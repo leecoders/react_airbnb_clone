@@ -19,7 +19,7 @@ const ButtonContainer = styled.div`
 const ButtonWrapper = styled.span`
   position: relative;
   display: inline-block;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
 `;
 const Button = styled.button`
   position: relative;
