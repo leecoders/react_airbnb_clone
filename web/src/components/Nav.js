@@ -9,7 +9,7 @@ const NavWrapper = styled.div`
   position: relative;
   height: 4.8rem;
   border-bottom: 1px solid ${styles.borderColor};
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 11px rgba(0, 0, 0, 0.1);
 `;
 const ButtonContainer = styled.div`
   position: relative;
@@ -41,7 +41,7 @@ const Button = styled.button`
 `;
 const BackgroundShadow = styled.div`
   position: fixed;
-  top: 4rem;
+  top: 4.1rem;
   display: ${props => (props.isModalOn ? "block" : "none")}
   width: 500rem;
   height: 500rem;
@@ -49,17 +49,17 @@ const BackgroundShadow = styled.div`
 `;
 
 const Nav = () => {
-  const [visibleForDate, setVisibleForDate] = useState(false);
-  const [visibleForPersonnel, setVisibleForPersonnel] = useState(false);
-  const [visibleForCost, setVisibleForCost] = useState(false);
+  const [visibilityForDate, setVisibilityForDate] = useState(false);
+  const [visibilityForPersonnel, setVisibilityForPersonnel] = useState(false);
+  const [visibilityForCost, setVisibilityForCost] = useState(false);
 
   const setAllToFalse = () => {
-    if (visibleForDate) setVisibleForDate(false);
-    if (visibleForPersonnel) setVisibleForPersonnel(false);
-    if (visibleForCost) setVisibleForCost(false);
+    if (visibilityForDate) setVisibilityForDate(false);
+    if (visibilityForPersonnel) setVisibilityForPersonnel(false);
+    if (visibilityForCost) setVisibilityForCost(false);
   };
   const checkModalOn = () => {
-    return visibleForDate || visibleForPersonnel || visibleForCost;
+    return visibilityForDate || visibilityForPersonnel || visibilityForCost;
   };
 
   return (
@@ -68,42 +68,42 @@ const Nav = () => {
         <BackgroundShadow isModalOn={checkModalOn()} onClick={setAllToFalse} />
         <ButtonWrapper>
           <Button
-            isClicked={visibleForDate}
+            isClicked={visibilityForDate}
             alt="date"
             onClick={() => {
               setAllToFalse();
-              setVisibleForDate(!visibleForDate);
+              setVisibilityForDate(!visibilityForDate);
             }}
           >
             날짜
           </Button>
-          {visibleForDate && <DatePicker />}
+          {visibilityForDate && <DatePicker />}
         </ButtonWrapper>
         <ButtonWrapper>
           <Button
-            isClicked={visibleForPersonnel}
+            isClicked={visibilityForPersonnel}
             alt="personnel"
             onClick={() => {
               setAllToFalse();
-              setVisibleForPersonnel(!visibleForPersonnel);
+              setVisibilityForPersonnel(!visibilityForPersonnel);
             }}
           >
             인원
           </Button>
-          {visibleForPersonnel && <PersonnelPicker />}
+          {visibilityForPersonnel && <PersonnelPicker />}
         </ButtonWrapper>
         <ButtonWrapper>
           <Button
-            isClicked={visibleForCost}
+            isClicked={visibilityForCost}
             alt="cost"
             onClick={() => {
               setAllToFalse();
-              setVisibleForCost(!visibleForCost);
+              setVisibilityForCost(!visibilityForCost);
             }}
           >
             가격
           </Button>
-          {visibleForCost && <CostPicker />}
+          {visibilityForCost && <CostPicker />}
         </ButtonWrapper>
       </ButtonContainer>
     </NavWrapper>
