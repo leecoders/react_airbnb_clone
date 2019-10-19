@@ -31,6 +31,7 @@ const Input = styled.input`
     border: 1px solid ${styles.primaryColor};
   }
   &::placeholder {
+    font-family: "KimNamyun", sans-serif;
     color: #adb5bd;
   }
 `;

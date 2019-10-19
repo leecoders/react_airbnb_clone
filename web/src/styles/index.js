@@ -6,6 +6,9 @@ export const styles = {
     font-weight: normal;
     font-style: normal;
   }`,
+  handWrittenFont: `"KimNamyun", sans-serif`,
+  normalFont: `"Nanum Gothic", sans-serif`,
+  symbolFont: `'Dosis', sans-serif`,
   titleColor: `rgb(255, 90, 95)`,
   borderColor: `#dee2e6`,
   textColor: `#484848`,

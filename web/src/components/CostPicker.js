@@ -10,6 +10,7 @@ const CostPickerWrapper = styled.div`
   background: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px;
   border-radius: 0.8rem;
+  font-size: 1.4rem;
 `;
 
 const CostPicker = () => {

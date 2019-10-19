@@ -12,7 +12,8 @@ const DatePickerWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px;
   border-radius: 0.8rem;
   color: ${styles.textColor};
-  font-size: 1.4rem;
+  font-size: 2rem;
+  font-family: "KimNamyun", sans-serif;
 `;
 const SlideButton = styled.div`
   z-index: 5;
