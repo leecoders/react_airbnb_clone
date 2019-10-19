@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../styles";
 
@@ -57,6 +57,9 @@ const PlusMinusButton = styled.span`
   color: ${styles.primaryColor};
   font-family: ${styles.symbolFont};
   cursor: pointer;
+  user-select: none;
+  opacity: ${props =>
+    props.count === 0 || props.restrictionForAdultMinus ? "0.3" : "1"};
 `;
 const Counter = styled.span`
   position: relative;
@@ -83,6 +86,18 @@ const Button = styled.div`
 `;
 
 const PersonnelPicker = () => {
+  const [adultCount, setAdultCount] = useState(0);
+  const [childCount, setChildCount] = useState(0);
+  const [infantCount, setInfantCount] = useState(0);
+  const [restrictionForAdultMinus, setRestrictionForAdultMinus] = useState(
+    false
+  );
+  useEffect(() => {
+    setRestrictionForAdultMinus(
+      adultCount === 1 && (!!childCount || !!infantCount)
+    );
+  }, [adultCount, childCount, infantCount]);
+
   return (
     <PersonnelPickerWrapper>
       <TypeOfPersonContainer>
@@ -90,9 +105,27 @@ const PersonnelPicker = () => {
           <TypeOfPerson isAdult={true}>성인</TypeOfPerson>
         </TypeOfPersonWrapper>
         <PlusMinusWrapper>
-          <PlusMinusButton>-</PlusMinusButton>
-          <Counter>0+</Counter>
-          <PlusMinusButton>+</PlusMinusButton>
+          <PlusMinusButton
+            count={adultCount}
+            restrictionForAdultMinus={restrictionForAdultMinus}
+            onClick={() => {
+              if (restrictionForAdultMinus) {
+                return;
+              }
+              if (!adultCount) return;
+              setAdultCount(adultCount - 1);
+            }}
+          >
+            -
+          </PlusMinusButton>
+          <Counter>{adultCount}+</Counter>
+          <PlusMinusButton
+            onClick={() => {
+              setAdultCount(adultCount + 1);
+            }}
+          >
+            +
+          </PlusMinusButton>
         </PlusMinusWrapper>
       </TypeOfPersonContainer>
       <TypeOfPersonContainer>
@@ -101,9 +134,24 @@ const PersonnelPicker = () => {
           <RangeOfAge>2~12세</RangeOfAge>
         </TypeOfPersonWrapper>
         <PlusMinusWrapper>
-          <PlusMinusButton>-</PlusMinusButton>
-          <Counter>0+</Counter>
-          <PlusMinusButton>+</PlusMinusButton>
+          <PlusMinusButton
+            count={childCount}
+            onClick={() => {
+              if (!childCount) return;
+              setChildCount(childCount - 1);
+            }}
+          >
+            -
+          </PlusMinusButton>
+          <Counter>{childCount}+</Counter>
+          <PlusMinusButton
+            onClick={() => {
+              setChildCount(childCount + 1);
+              if (childCount === 0 && adultCount === 0) setAdultCount(1);
+            }}
+          >
+            +
+          </PlusMinusButton>
         </PlusMinusWrapper>
       </TypeOfPersonContainer>
       <TypeOfPersonContainer>
@@ -112,9 +160,24 @@ const PersonnelPicker = () => {
           <RangeOfAge>2세 미만</RangeOfAge>
         </TypeOfPersonWrapper>
         <PlusMinusWrapper>
-          <PlusMinusButton>-</PlusMinusButton>
-          <Counter>0+</Counter>
-          <PlusMinusButton>+</PlusMinusButton>
+          <PlusMinusButton
+            count={infantCount}
+            onClick={() => {
+              if (!infantCount) return;
+              setInfantCount(infantCount - 1);
+            }}
+          >
+            -
+          </PlusMinusButton>
+          <Counter>{infantCount}+</Counter>
+          <PlusMinusButton
+            onClick={() => {
+              setInfantCount(infantCount + 1);
+              if (infantCount === 0 && adultCount === 0) setAdultCount(1);
+            }}
+          >
+            +
+          </PlusMinusButton>
         </PlusMinusWrapper>
       </TypeOfPersonContainer>
       <Button type={"delete"}>삭제</Button>
