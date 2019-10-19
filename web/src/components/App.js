@@ -17,11 +17,18 @@ const HeaderContainer = styled.div`
 `;
 
 const App = () => {
+  let closeNavModal;
+  const liftUpNavModalControl = setAllToFalse => {
+    closeNavModal = setAllToFalse;
+  };
+  const handleHeaderMenuClick = () => {
+    closeNavModal();
+  };
   return (
     <AppWrapper>
       <HeaderContainer>
-        <Header />
-        <Nav />
+        <Header handleHeaderMenuClick={handleHeaderMenuClick} />
+        <Nav liftUpNavModalControl={liftUpNavModalControl} />
       </HeaderContainer>
       <Section />
     </AppWrapper>

@@ -48,7 +48,7 @@ const BackgroundShadow = styled.div`
   background: rgba(255, 255, 255, 0.85);
 `;
 
-const Nav = () => {
+const Nav = ({ liftUpNavModalControl }) => {
   const [visibilityForDate, setVisibilityForDate] = useState(false);
   const [visibilityForPersonnel, setVisibilityForPersonnel] = useState(false);
   const [visibilityForCost, setVisibilityForCost] = useState(false);
@@ -61,6 +61,7 @@ const Nav = () => {
   const checkModalOn = () => {
     return visibilityForDate || visibilityForPersonnel || visibilityForCost;
   };
+  liftUpNavModalControl(setAllToFalse);
 
   return (
     <NavWrapper>

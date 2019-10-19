@@ -19,9 +19,7 @@ const SlideButton = styled.div`
   position: absolute;
   top: 3.5rem;
   ${props =>
-    props.dir === "left"
-      ? "left: 3.2rem; transform: rotate(180deg);"
-      : "right: 3.2rem"}
+    props.isLeft ? "left: 3.2rem; transform: rotate(180deg);" : "right: 3.2rem"}
   width: 3.7rem;
   height: 3.1rem;
   border: 1px solid ${styles.borderColor};
@@ -67,7 +65,7 @@ const WeekDayContainer = styled.div`
 const CalendarContainer = styled.div`
   position: absolute;
   top: 0.5rem;
-  ${props => (props.pos === "left" ? "left: 1.5rem;" : "right:1.5rem;")}
+  ${props => (props.isLeft ? "left: 1.5rem;" : "right:1.5rem;")}
   width: 25rem;
   height: 28rem;
   border: 1px solid black;
@@ -79,7 +77,7 @@ const CarouselContainer = styled.div`
   width: 108rem;
   height: 30rem;
   border: 1px solid blue;
-  ${props => (props.isClicked && props.dir === "left" ? "left: -21rem;" : "")}
+  ${props => (props.isClicked && props.isLeft ? "left: -21rem;" : "")}
 `;
 const CarouselCard = styled.div`
   position: relative;
@@ -95,7 +93,7 @@ const DatePicker = () => {
   return (
     <DatePickerWrapper>
       <SlideButton
-        dir={"left"}
+        isLeft={true}
         onClick={() => {
           const carousel = document.querySelector(".carousel");
           const card = carousel.children[0];
@@ -110,7 +108,7 @@ const DatePicker = () => {
         }}
       />
       <SlideButton
-        dir={"right"}
+        isLeft={false}
         onClick={() => {
           const carousel = document.querySelector(".carousel");
           const card = carousel.children[3];
@@ -122,8 +120,8 @@ const DatePicker = () => {
       />
       <BoundaryArea>
         <WeekDayContainer></WeekDayContainer>
-        <CalendarContainer pos={"left"}></CalendarContainer>
-        <CalendarContainer pos={"right"}></CalendarContainer>
+        <CalendarContainer isLeft={true}></CalendarContainer>
+        <CalendarContainer isLeft={false}></CalendarContainer>
         <CarouselContainer className="carousel">
           <CarouselCard>1</CarouselCard>
           <CarouselCard>2</CarouselCard>

@@ -58,7 +58,7 @@ const BackgroundShadow = styled.div`
   background: rgba(255, 255, 255, 0.85);
 `;
 
-const Header = () => {
+const Header = ({ handleHeaderMenuClick }) => {
   const [visibilityForUserBox, setVisibilityForUserBox] = useState(false);
   return (
     <HeaderWrapper>
@@ -71,6 +71,7 @@ const Header = () => {
         <span> 님</span>
         <UserButton
           onClick={() => {
+            handleHeaderMenuClick();
             setVisibilityForUserBox(!visibilityForUserBox);
           }}
         />
