@@ -10,7 +10,7 @@ export const styles = {
   normalFont: `"Nanum Gothic", sans-serif`,
   symbolFont: `'Dosis', sans-serif`,
   titleColor: `rgb(255, 90, 95)`,
-  borderColor: `#dee2e6`,
+  borderColor: `#e4e4e4`,
   textColor: `#484848`,
   buttonHoverColor: `#f1f3f5`,
   primaryColor: `#38d9a9`
