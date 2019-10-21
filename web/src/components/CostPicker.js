@@ -12,6 +12,7 @@ const CostPickerWrapper = styled.div`
   border-radius: 0.8rem;
   font-size: 2rem;
   font-family: ${styles.normalFont};
+  user-select: none;
 `;
 const RangeSliderContainer = styled.div`
   position: relative;
@@ -123,41 +124,40 @@ const CostPicker = () => {
   const [focusLeftInput, setFocusLeftInput] = useState(false);
   const [focusRightInput, setFocusRightInput] = useState(false);
 
-  const handleMouseDownForLeft = e => {
+  const handleDragStartForLeft = e => {
     const img = new Image();
-    img.src =
-      "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+    img.src = "../assets/images/transparency.png";
     e.dataTransfer.setDragImage(img, 0, 0);
     setLeftButtonStart(leftPos);
-    setLeftMouseStart(e.clientX);
+    setLeftMouseStart(e.pageX);
   };
-  const handleMouseDownForRight = e => {
+  const handleDragStartForRight = e => {
     const img = new Image();
-    img.src =
-      "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+    img.src = "../assets/images/transparency.png";
     e.dataTransfer.setDragImage(img, 0, 0);
     setRightButtonStart(rightPos);
-    setRightMouseStart(e.clientX);
+    setRightMouseStart(e.pageX);
   };
-  const handleMouseMove = e => {
+  const handleDrag = e => {
     if (leftMouseStart) {
-      const dist = e.clientX - leftMouseStart;
+      const dist = e.pageX - leftMouseStart;
       let nextLeft = leftButtonStart + dist;
       if (nextLeft + 10 > rightPos) return;
-      if (nextLeft < 0) nextLeft = 0;
-      if (nextLeft > 320) nextLeft = 320;
+      if (nextLeft < 0) return;
+      if (nextLeft > 320) return;
+
       setLeftPos(nextLeft);
     }
     if (rightMouseStart) {
-      const dist = e.clientX - rightMouseStart;
+      const dist = e.pageX - rightMouseStart;
       let nextLeft = rightButtonStart + dist;
       if (nextLeft - 10 < leftPos) return;
-      if (nextLeft < 0) nextLeft = 0;
-      if (nextLeft > 320) nextLeft = 320;
+      if (nextLeft < 0) return;
+      if (nextLeft > 320) return;
       setRightPos(nextLeft);
     }
   };
-  const handleMouseUp = () => {
+  const handleDragEnd = e => {
     setLeftMouseStart(undefined);
     setRightMouseStart(undefined);
   };
@@ -178,18 +178,18 @@ const CostPicker = () => {
         </RangeSliderBar>
         <RangeButton
           draggable="true"
-          onDragStart={handleMouseDownForLeft}
-          onDrag={handleMouseMove}
-          onDragEnd={handleMouseUp}
+          onDragStart={handleDragStartForLeft}
+          onDrag={handleDrag}
+          onDragEnd={handleDragEnd}
           left={leftPos}
         >
           |||
         </RangeButton>
         <RangeButton
           draggable="true"
-          onDragStart={handleMouseDownForRight}
-          onDrag={handleMouseMove}
-          onDragEnd={handleMouseUp}
+          onDragStart={handleDragStartForRight}
+          onDrag={handleDrag}
+          onDragEnd={handleDragEnd}
           left={rightPos}
         >
           |||
