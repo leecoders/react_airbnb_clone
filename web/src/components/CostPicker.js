@@ -125,16 +125,12 @@ const CostPicker = () => {
   const [focusRightInput, setFocusRightInput] = useState(false);
 
   const handleDragStartForLeft = e => {
-    const img = new Image();
-    img.src = "../assets/images/transparency.png";
-    e.dataTransfer.setDragImage(img, 0, 0);
+    e.dataTransfer.setDragImage(document.querySelector("#hidden"), 0, 0);
     setLeftButtonStart(leftPos);
     setLeftMouseStart(e.pageX);
   };
   const handleDragStartForRight = e => {
-    const img = new Image();
-    img.src = "../assets/images/transparency.png";
-    e.dataTransfer.setDragImage(img, 0, 0);
+    e.dataTransfer.setDragImage(document.querySelector("#hidden"), 0, 0);
     setRightButtonStart(rightPos);
     setRightMouseStart(e.pageX);
   };
@@ -145,7 +141,6 @@ const CostPicker = () => {
       if (nextLeft + 10 > rightPos) return;
       if (nextLeft < 0) return;
       if (nextLeft > 320) return;
-
       setLeftPos(nextLeft);
     }
     if (rightMouseStart) {
@@ -169,6 +164,11 @@ const CostPicker = () => {
         setFocusLeftInput(false);
       }}
     >
+      <img
+        id="hidden"
+        style={{ position: "absolute", left: "-5000rem", visibility: "hidden" }} // 하..
+        src="../assets/images/logo.png"
+      />
       <RangeSliderContainer>
         <RangeSliderBar>
           <RangeSliderBarBetweenButtons
