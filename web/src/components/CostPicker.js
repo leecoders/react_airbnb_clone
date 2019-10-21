@@ -12,8 +12,13 @@ const CostPickerWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px;
   border-radius: 0.8rem;
   font-size: 2rem;
-  font-family: ${styles.normalFont};
+  font-family: ${styles.handWrittenFont};
   user-select: none;
+`;
+const CostPickerInfo = styled.div`
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
 `;
 const RangeSliderContainer = styled.div`
   position: relative;
@@ -187,6 +192,7 @@ const CostPicker = () => {
         setFocusLeftInput(false);
       }}
     >
+      <CostPickerInfo>*1박 기준 요금입니다.</CostPickerInfo>
       <img
         id="hidden"
         style={{ position: "absolute", left: "-5000rem", visibility: "hidden" }} // 하..
