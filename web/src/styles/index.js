@@ -13,7 +13,8 @@ export const styles = {
   borderColor: `#e4e4e4`,
   textColor: `#484848`,
   buttonHoverColor: `#f1f3f5`,
-  primaryColor: `#38d9a9`
+  primaryColor: `#38d9a9`,
+  hoverPrimaryColor: `#12b886`
 };
 
 export default styles;

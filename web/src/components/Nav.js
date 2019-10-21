@@ -30,14 +30,18 @@ const Button = styled.button`
   font-family: "KimNamyun", sans-serif;
   font-size: 2rem;
   border-radius: 0.4rem;
-  color: ${props => (props.isClicked ? "#ffffff" : styles.textColor)};
-  background: ${props => (props.isClicked ? styles.primaryColor : "#ffffff")};
+  color: ${props =>
+    props.isClicked || props.isSet ? "#ffffff" : styles.textColor};
+  background: ${props =>
+    props.isClicked || props.isSet ? styles.primaryColor : "#ffffff"};
   outline: none;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
   &:hover {
     background: ${props =>
       props.isClicked ? styles.primaryColor : styles.buttonHoverColor};
   }
+  ${props =>
+    props.isSet && "&:hover { background: " + styles.hoverPrimaryColor + "}"}
 `;
 const BackgroundShadow = styled.div`
   position: fixed;
@@ -52,6 +56,7 @@ const Nav = ({ liftUpNavModalControl }) => {
   const [visibilityForDate, setVisibilityForDate] = useState(false);
   const [visibilityForPersonnel, setVisibilityForPersonnel] = useState(false);
   const [visibilityForCost, setVisibilityForCost] = useState(false);
+  const [personnelInfo, setPersonnelInfo] = useState("인원");
 
   const setAllToFalse = () => {
     if (visibilityForDate) setVisibilityForDate(false);
@@ -60,6 +65,9 @@ const Nav = ({ liftUpNavModalControl }) => {
   };
   const checkModalOn = () => {
     return visibilityForDate || visibilityForPersonnel || visibilityForCost;
+  };
+  const handlePersonnelChange = info => {
+    setPersonnelInfo(info);
   };
   liftUpNavModalControl(setAllToFalse);
 
@@ -83,15 +91,18 @@ const Nav = ({ liftUpNavModalControl }) => {
         <ButtonWrapper>
           <Button
             isClicked={visibilityForPersonnel}
+            isSet={personnelInfo !== "인원"}
             alt="personnel"
             onClick={() => {
               setAllToFalse();
               setVisibilityForPersonnel(!visibilityForPersonnel);
             }}
           >
-            인원
+            {personnelInfo}
           </Button>
-          {visibilityForPersonnel && <PersonnelPicker />}
+          {visibilityForPersonnel && (
+            <PersonnelPicker handlePersonnelChange={handlePersonnelChange} />
+          )}
         </ButtonWrapper>
         <ButtonWrapper>
           <Button

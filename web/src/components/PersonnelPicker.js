@@ -85,7 +85,7 @@ const Button = styled.div`
   }
 `;
 
-const PersonnelPicker = () => {
+const PersonnelPicker = ({ handlePersonnelChange }) => {
   const [adultCount, setAdultCount] = useState(0);
   const [childCount, setChildCount] = useState(0);
   const [infantCount, setInfantCount] = useState(0);
@@ -96,6 +96,12 @@ const PersonnelPicker = () => {
     setRestrictionForAdultMinus(
       adultCount === 1 && (!!childCount || !!infantCount)
     );
+    let infoMessage = "";
+    const guestCount = adultCount + childCount;
+    if (guestCount === 0) infoMessage = "인원";
+    else infoMessage = `게스트 ${guestCount}명`;
+    if (infantCount > 0) infoMessage += `, 유아 ${infantCount}명`;
+    handlePersonnelChange(infoMessage);
   }, [adultCount, childCount, infantCount]);
 
   return (
