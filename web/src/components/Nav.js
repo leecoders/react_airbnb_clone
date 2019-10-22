@@ -56,6 +56,10 @@ const Nav = ({ liftUpNavModalControl }) => {
   const [visibilityForDate, setVisibilityForDate] = useState(false);
   const [visibilityForPersonnel, setVisibilityForPersonnel] = useState(false);
   const [visibilityForCost, setVisibilityForCost] = useState(false);
+  // for DatePicker
+  const [dateInfo, setDateInfo] = useState("날짜");
+  const [checkInDate, setCheckInDate] = useState(undefined);
+  const [checkOutDate, setCheckOutDate] = useState(undefined);
   // for PersonnelPicker
   const [personnelInfo, setPersonnelInfo] = useState("인원");
   const [adultCount, setAdultCount] = useState(0);
@@ -66,6 +70,19 @@ const Nav = ({ liftUpNavModalControl }) => {
   const [minCost, setMinCost] = useState(12000);
   const [maxCost, setMaxCost] = useState(1000000);
 
+  useEffect(() => {
+    let infoMessage = "";
+    if (!checkInDate && !checkOutDate) {
+      infoMessage = "날짜";
+    } else if (!checkOutDate) {
+      infoMessage = `${checkInDate} - 체크아웃`;
+    } else if (!checkInDate) {
+      infoMessage = `체크인 - ${checkOutDate}`;
+    } else {
+      infoMessage = `${checkInDate} - ${checkOutDate}`;
+    }
+    setDateInfo(infoMessage);
+  }, [checkInDate, checkOutDate]);
   useEffect(() => {
     let infoMessage = "";
     if (adultCount + childCount === 0) infoMessage = "인원";
@@ -95,6 +112,10 @@ const Nav = ({ liftUpNavModalControl }) => {
   const checkModalOn = () => {
     return visibilityForDate || visibilityForPersonnel || visibilityForCost;
   };
+  const handleDateChange = (checkInDatePassed, checkOutDatePassed) => {
+    setCheckInDate(checkInDatePassed);
+    setCheckOutDate(checkOutDatePassed);
+  };
   const handlePersonnelChange = (
     guestCountPassed,
     childCountPassed,
@@ -117,15 +138,22 @@ const Nav = ({ liftUpNavModalControl }) => {
         <ButtonWrapper>
           <Button
             isClicked={visibilityForDate}
+            isSet={dateInfo !== "날짜"}
             alt="date"
             onClick={() => {
               setAllToFalse();
               setVisibilityForDate(!visibilityForDate);
             }}
           >
-            날짜
+            {dateInfo}
           </Button>
-          {visibilityForDate && <DatePicker />}
+          {visibilityForDate && (
+            <DatePicker
+              checkInDatePassed={checkInDate}
+              checkOutDatePassed={checkOutDate}
+              handleDateChange={handleDateChange}
+            />
+          )}
         </ButtonWrapper>
         <ButtonWrapper>
           <Button

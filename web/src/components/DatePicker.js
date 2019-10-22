@@ -6,6 +6,7 @@ import "react-dates/initialize";
 import { DayPickerRangeController } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import moment from "moment";
+import "moment/locale/ko";
 moment.locale("ko");
 
 const DatePickerWrapper = styled.div`
@@ -38,30 +39,70 @@ const Button = styled.div`
   }
 `;
 
-const DatePicker = () => {
+const DatePicker = ({
+  checkInDatePassed,
+  checkOutDatePassed,
+  handleDateChange
+}) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState("startDate");
+  const [checkInDate, setCheckInDate] = useState(checkInDatePassed);
+  const [checkOutDate, setCheckOutDate] = useState(checkOutDatePassed);
+
+  useEffect(() => {
+    if (startDate instanceof moment) {
+      const d = startDate.format("l").split(".");
+      const year = d[0];
+      const month = d[1];
+      const day = d[2];
+      setCheckInDate(`${year}년 ${month}월 ${day}일`);
+    }
+    if (endDate instanceof moment) {
+      const d = endDate.format("l").split(".");
+      const year = d[0];
+      const month = d[1];
+      const day = d[2];
+      setCheckOutDate(`${year}년 ${month}월 ${day}일`);
+    }
+  }, [startDate, endDate]);
+  useEffect(() => {
+    handleDateChange(checkInDate, checkOutDate);
+    if (!!checkInDate) {
+      const year = checkInDate.split("년 ")[0];
+      const month = checkInDate.split("년 ")[1].split("월 ")[0];
+      const day = checkInDate.split("월 ")[1].split("일")[0];
+      setStartDate(moment(`${year}-${month}-${day}`));
+      setFocusedInput("endDate");
+    }
+    if (!!checkOutDate) {
+      const year = checkOutDate.split("년 ")[0];
+      const month = checkOutDate.split("년 ")[1].split("월 ")[0];
+      const day = checkOutDate.split("월 ")[1].split("일")[0];
+      setEndDate(moment(`${year}-${month}-${day}`));
+      setFocusedInput("endDate");
+    }
+  }, [checkInDate, checkOutDate]);
 
   return (
     <DatePickerWrapper>
       <DayPickerRangeController
         startDate={startDate}
         endDate={endDate}
-        onDatesChange={({ startDate, endDate }) => {
-          setStartDate(startDate);
-          setEndDate(endDate);
-        }}
         focusedInput={focusedInput}
-        onFocusChange={focusedInput => {
-          setFocusedInput(focusedInput);
-        }}
         hideKeyboardShortcutsPanel={true}
         keepOpenOnDateSelect={true}
         numberOfMonths={2}
         noBorder={true}
         monthFormat={"YYYY MMMM"}
         isOutsideRange={day => day.isBefore(moment())}
+        onDatesChange={({ startDate, endDate }) => {
+          setStartDate(startDate);
+          setEndDate(endDate);
+        }}
+        onFocusChange={focusedInput => {
+          setFocusedInput(focusedInput);
+        }}
       />
       <Button
         type={"delete"}
