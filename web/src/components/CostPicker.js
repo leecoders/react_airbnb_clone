@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../styles";
 import util from "../utils";
@@ -120,7 +120,7 @@ const Button = styled.div`
   }
 `;
 
-const CostPicker = () => {
+const CostPicker = ({ minCostPassed, maxCostPassed, handleCostChange }) => {
   const [leftPos, setLeftPos] = useState(0);
   const [rightPos, setRightPos] = useState(320);
   const [leftMouseStart, setLeftMouseStart] = useState(undefined);
@@ -129,8 +129,14 @@ const CostPicker = () => {
   const [rightButtonStart, setRightButtonStart] = useState(0);
   const [focusLeftInput, setFocusLeftInput] = useState(false);
   const [focusRightInput, setFocusRightInput] = useState(false);
-  const [minCost, setMinCost] = useState(12000);
-  const [maxCost, setMaxCost] = useState(1000000);
+  const [minCost, setMinCost] = useState(minCostPassed);
+  const [maxCost, setMaxCost] = useState(maxCostPassed);
+
+  useEffect(() => {
+    handleCostChange(minCost, maxCost);
+    setLeftPos(getLeftPos(minCost));
+    setRightPos(getRightPos(maxCost));
+  }, [minCost, maxCost]);
 
   const handleDragStartForLeft = e => {
     e.dataTransfer.setDragImage(document.querySelector("#hidden"), 0, 0);
@@ -170,19 +176,35 @@ const CostPicker = () => {
     setLeftMouseStart(undefined);
     setRightMouseStart(undefined);
   };
-  const hangleMinCostChange = e => {
-    const portion = util.getRangePortionByCost(e.target.value);
-    let nextLeft = portion * 320;
-    if (nextLeft > rightPos) nextLeft = rightPos;
-    setMinCost(e.target.value);
-    setLeftPos(nextLeft);
+  const handleMinCostChange = e => {
+    let value = e.target.value;
+    if (value > maxCost) setMaxCost(value);
+    setMinCost(value);
   };
-  const hangleMaxCostChange = e => {
-    const portion = util.getRangePortionByCost(e.target.value);
+  const handleMaxCostChange = e => {
+    let value = e.target.value;
+    if (value < minCost) setMinCost(value);
+    setMaxCost(value);
+  };
+  const getLeftPos = value => {
+    const portion = util.getRangePortionByCost(value);
+    let nextLeft = portion * 320;
+    if (nextLeft > rightPos) {
+      setRightPos(nextLeft);
+      nextLeft -= 10;
+      if (nextLeft < 0) nextLeft = 0;
+    }
+    return nextLeft;
+  };
+  const getRightPos = value => {
+    const portion = util.getRangePortionByCost(value);
     let nextRight = portion * 320;
-    if (nextRight < leftPos) nextRight = leftPos;
-    setMaxCost(e.target.value);
-    setRightPos(nextRight);
+    if (nextRight < leftPos) {
+      setLeftPos(nextRight);
+      nextRight += 10;
+      if (nextRight > 320) nextRight = 320;
+    }
+    return nextRight;
   };
 
   return (
@@ -239,7 +261,7 @@ const CostPicker = () => {
             id="min-cost"
             type="number"
             value={minCost}
-            onChange={hangleMinCostChange}
+            onChange={handleMinCostChange}
           ></CostInput>
         </CostInputWrapper>
         <BetweenCostInput>-</BetweenCostInput>
@@ -257,7 +279,7 @@ const CostPicker = () => {
             id="max-cost"
             type="number"
             value={maxCost}
-            onChange={hangleMaxCostChange}
+            onChange={handleMaxCostChange}
           ></CostInput>
         </CostInputWrapper>
       </CostInputContainer>

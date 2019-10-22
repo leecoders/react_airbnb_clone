@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "moment": "^2.24.0",
+    "react-dates": "^21.3.1"
+  }
+}
