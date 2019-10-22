@@ -120,7 +120,12 @@ const Button = styled.div`
   }
 `;
 
-const CostPicker = ({ minCostPassed, maxCostPassed, handleCostChange }) => {
+const CostPicker = ({
+  minCostPassed,
+  maxCostPassed,
+  handleCostChange,
+  handleSaveButtonClick
+}) => {
   const [leftPos, setLeftPos] = useState(0);
   const [rightPos, setRightPos] = useState(320);
   const [leftMouseStart, setLeftMouseStart] = useState(undefined);
@@ -283,8 +288,23 @@ const CostPicker = ({ minCostPassed, maxCostPassed, handleCostChange }) => {
           ></CostInput>
         </CostInputWrapper>
       </CostInputContainer>
-      <Button type={"delete"}>삭제</Button>
-      <Button type={"save"}>저장</Button>
+      <Button
+        type={"delete"}
+        onClick={() => {
+          setMinCost(12000);
+          setMaxCost(1000000);
+        }}
+      >
+        삭제
+      </Button>
+      <Button
+        type={"save"}
+        onClick={() => {
+          handleSaveButtonClick();
+        }}
+      >
+        저장
+      </Button>
     </CostPickerWrapper>
   );
 };

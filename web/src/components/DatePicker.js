@@ -42,7 +42,8 @@ const Button = styled.div`
 const DatePicker = ({
   checkInDatePassed,
   checkOutDatePassed,
-  handleDateChange
+  handleDateChange,
+  handleSaveButtonClick
 }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -109,11 +110,21 @@ const DatePicker = ({
         onClick={() => {
           setStartDate(null);
           setEndDate(null);
+          setCheckInDate(undefined);
+          setCheckOutDate(undefined);
+          setFocusedInput("startDate");
         }}
       >
         삭제
       </Button>
-      <Button type={"save"}>저장</Button>
+      <Button
+        type={"save"}
+        onClick={() => {
+          handleSaveButtonClick();
+        }}
+      >
+        저장
+      </Button>
     </DatePickerWrapper>
   );
 };

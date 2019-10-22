@@ -89,7 +89,8 @@ const PersonnelPicker = ({
   adultCountPassed,
   childCountPassed,
   infantCountPassed,
-  handlePersonnelChange
+  handlePersonnelChange,
+  handleSaveButtonClick
 }) => {
   const [adultCount, setAdultCount] = useState(adultCountPassed);
   const [childCount, setChildCount] = useState(childCountPassed);
@@ -186,8 +187,24 @@ const PersonnelPicker = ({
           </PlusMinusButton>
         </PlusMinusWrapper>
       </TypeOfPersonContainer>
-      <Button type={"delete"}>삭제</Button>
-      <Button type={"save"}>저장</Button>
+      <Button
+        type={"delete"}
+        onClick={() => {
+          setAdultCount(0);
+          setChildCount(0);
+          setInfantCount(0);
+        }}
+      >
+        삭제
+      </Button>
+      <Button
+        type={"save"}
+        onClick={() => {
+          handleSaveButtonClick();
+        }}
+      >
+        저장
+      </Button>
     </PersonnelPickerWrapper>
   );
 };

@@ -112,6 +112,9 @@ const Nav = ({ liftUpNavModalControl }) => {
   const checkModalOn = () => {
     return visibilityForDate || visibilityForPersonnel || visibilityForCost;
   };
+  const handleSaveButtonClick = () => {
+    setAllToFalse();
+  };
   const handleDateChange = (checkInDatePassed, checkOutDatePassed) => {
     setCheckInDate(checkInDatePassed);
     setCheckOutDate(checkOutDatePassed);
@@ -151,6 +154,7 @@ const Nav = ({ liftUpNavModalControl }) => {
             <DatePicker
               checkInDatePassed={checkInDate}
               checkOutDatePassed={checkOutDate}
+              handleSaveButtonClick={handleSaveButtonClick}
               handleDateChange={handleDateChange}
             />
           )}
@@ -172,6 +176,7 @@ const Nav = ({ liftUpNavModalControl }) => {
               adultCountPassed={adultCount}
               childCountPassed={childCount}
               infantCountPassed={infantCount}
+              handleSaveButtonClick={handleSaveButtonClick}
               handlePersonnelChange={handlePersonnelChange}
             />
           )}
@@ -192,6 +197,7 @@ const Nav = ({ liftUpNavModalControl }) => {
             <CostPicker
               minCostPassed={minCost}
               maxCostPassed={maxCost}
+              handleSaveButtonClick={handleSaveButtonClick}
               handleCostChange={handleCostChange}
             />
           )}
