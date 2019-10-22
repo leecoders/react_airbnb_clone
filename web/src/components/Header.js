@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import styles from "../styles";
 import logoImage from "../assets/images/logo.png";
-import userImage from "../assets/images/user-circle.png";
+import userImage from "../assets/images/user.png";
 import UserBox from "./UserBox.js";
 
 const HeaderWrapper = styled.div`
@@ -33,7 +33,7 @@ const Title = styled.span`
 `;
 const UserContainer = styled.div`
   position: absolute;
-  top: 0rem;
+  top: 0.5rem;
   right: 0.5rem;
   font-size: 2.5rem;
   padding: 1rem;
@@ -41,12 +41,12 @@ const UserContainer = styled.div`
 const UserButton = styled.span`
   position: relative;
   display: inline-block;
-  top: 0.9rem;
+  top: 0.5rem;
   margin-left: 1rem;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3rem;
+  height: 3rem;
   background: url(${userImage}) no-repeat 50% 50%;
-  background-size: 3.5rem 3.5rem;
+  background-size: 3rem 3rem;
   cursor: pointer;
 `;
 const BackgroundShadow = styled.div`

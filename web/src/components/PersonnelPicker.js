@@ -98,11 +98,17 @@ const PersonnelPicker = ({
   const [restrictionForAdultMinus, setRestrictionForAdultMinus] = useState(
     false
   );
+  const [visibilityForDelete, setVisibilityForDelete] = useState(false);
   useEffect(() => {
     setRestrictionForAdultMinus(
       adultCount === 1 && (!!childCount || !!infantCount)
     );
     handlePersonnelChange(adultCount, childCount, infantCount);
+    if (adultCount || childCount || infantCount) {
+      setVisibilityForDelete(true);
+    } else {
+      setVisibilityForDelete(false);
+    }
   }, [adultCount, childCount, infantCount]);
 
   return (
@@ -187,16 +193,19 @@ const PersonnelPicker = ({
           </PlusMinusButton>
         </PlusMinusWrapper>
       </TypeOfPersonContainer>
-      <Button
-        type={"delete"}
-        onClick={() => {
-          setAdultCount(0);
-          setChildCount(0);
-          setInfantCount(0);
-        }}
-      >
-        삭제
-      </Button>
+      {visibilityForDelete && (
+        <Button
+          type={"delete"}
+          onClick={() => {
+            setAdultCount(0);
+            setChildCount(0);
+            setInfantCount(0);
+          }}
+        >
+          삭제
+        </Button>
+      )}
+
       <Button
         type={"save"}
         onClick={() => {

@@ -50,6 +50,7 @@ const DatePicker = ({
   const [focusedInput, setFocusedInput] = useState("startDate");
   const [checkInDate, setCheckInDate] = useState(checkInDatePassed);
   const [checkOutDate, setCheckOutDate] = useState(checkOutDatePassed);
+  const [visibilityForDelete, setVisibilityForDelete] = useState(false);
 
   useEffect(() => {
     if (startDate instanceof moment) {
@@ -83,6 +84,11 @@ const DatePicker = ({
       setEndDate(moment(`${year}-${month}-${day}`));
       setFocusedInput("endDate");
     }
+    if (checkInDate || checkOutDate) {
+      setVisibilityForDelete(true);
+    } else {
+      setVisibilityForDelete(false);
+    }
   }, [checkInDate, checkOutDate]);
 
   return (
@@ -105,18 +111,21 @@ const DatePicker = ({
           setFocusedInput(focusedInput);
         }}
       />
-      <Button
-        type={"delete"}
-        onClick={() => {
-          setStartDate(null);
-          setEndDate(null);
-          setCheckInDate(undefined);
-          setCheckOutDate(undefined);
-          setFocusedInput("startDate");
-        }}
-      >
-        삭제
-      </Button>
+      {visibilityForDelete && (
+        <Button
+          type={"delete"}
+          onClick={() => {
+            setStartDate(null);
+            setEndDate(null);
+            setCheckInDate(undefined);
+            setCheckOutDate(undefined);
+            setFocusedInput("startDate");
+          }}
+        >
+          삭제
+        </Button>
+      )}
+
       <Button
         type={"save"}
         onClick={() => {

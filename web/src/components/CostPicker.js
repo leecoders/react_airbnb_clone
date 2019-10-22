@@ -136,11 +136,17 @@ const CostPicker = ({
   const [focusRightInput, setFocusRightInput] = useState(false);
   const [minCost, setMinCost] = useState(minCostPassed);
   const [maxCost, setMaxCost] = useState(maxCostPassed);
+  const [visibilityForDelete, setVisibilityForDelete] = useState(false);
 
   useEffect(() => {
     handleCostChange(minCost, maxCost);
     setLeftPos(getLeftPos(minCost));
     setRightPos(getRightPos(maxCost));
+    if (minCost != 12000 || maxCost != 1000000) {
+      setVisibilityForDelete(true);
+    } else {
+      setVisibilityForDelete(false);
+    }
   }, [minCost, maxCost]);
 
   const handleDragStartForLeft = e => {
@@ -288,15 +294,18 @@ const CostPicker = ({
           ></CostInput>
         </CostInputWrapper>
       </CostInputContainer>
-      <Button
-        type={"delete"}
-        onClick={() => {
-          setMinCost(12000);
-          setMaxCost(1000000);
-        }}
-      >
-        삭제
-      </Button>
+      {visibilityForDelete && (
+        <Button
+          type={"delete"}
+          onClick={() => {
+            setMinCost(12000);
+            setMaxCost(1000000);
+          }}
+        >
+          삭제
+        </Button>
+      )}
+
       <Button
         type={"save"}
         onClick={() => {
