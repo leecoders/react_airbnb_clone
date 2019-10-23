@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../styles";
 import logoImage from "../assets/images/logo.png";
@@ -60,6 +60,16 @@ const BackgroundShadow = styled.div`
 
 const Header = ({ handleHeaderMenuClick }) => {
   const [visibilityForUserBox, setVisibilityForUserBox] = useState(false);
+  const [signinState, setSigninState] = useState(false);
+
+  useEffect(() => {
+    console.log(signinState);
+  }, [signinState]);
+
+  const liftUpSigninStateToHeader = signinStatePassed => {
+    setSigninState(signinStatePassed);
+  };
+
   return (
     <HeaderWrapper>
       <Title>
@@ -83,7 +93,12 @@ const Header = ({ handleHeaderMenuClick }) => {
           }}
         />
       )}
-      {visibilityForUserBox && <UserBox></UserBox>}
+      {visibilityForUserBox && (
+        <UserBox
+          signinStatePassed={signinState}
+          liftUpSigninStateToHeader={liftUpSigninStateToHeader}
+        ></UserBox>
+      )}
     </HeaderWrapper>
   );
 };

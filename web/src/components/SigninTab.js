@@ -106,11 +106,15 @@ const SignoutButton = styled.button`
   }
 `;
 
-const SigninTab = () => {
+const SigninTab = ({ signinStatePassed, liftUpSigninStateToUserBox }) => {
   const [id, setId] = useState(undefined);
   const [password, setPassword] = useState(undefined);
-  const [signinState, setSigninState] = useState(false);
+  const [signinState, setSigninState] = useState(signinStatePassed);
   const [failureMessage, setFailureMessage] = useState("");
+
+  useEffect(() => {
+    liftUpSigninStateToUserBox(signinState);
+  }, [signinState]);
 
   const signin = async () => {
     const result = await fetchSignInResult(id, password);
@@ -120,6 +124,7 @@ const SigninTab = () => {
       setFailureMessage("사용자 정보를 다시 확인해주세요.");
     }
   };
+
   return (
     <SigninTabWrapper>
       {!signinState ? (

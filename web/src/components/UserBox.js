@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../styles";
 import SigninTab from "./SigninTab.js";
@@ -33,8 +33,18 @@ const Button = styled.div`
   font-weight: bold;
 `;
 
-const UserBox = () => {
+const UserBox = ({ signinStatePassed, liftUpSigninStateToHeader }) => {
   const [visibilityForSignin, setVisibilityForSignin] = useState(true);
+  const [signinState, setSigninState] = useState(signinStatePassed);
+
+  useEffect(() => {
+    liftUpSigninStateToHeader(signinState);
+  }, [signinState]);
+
+  const liftUpSigninStateToUserBox = signinStatePassed => {
+    setSigninState(signinStatePassed);
+  };
+
   return (
     <UserBoxWrapper>
       <Button
@@ -55,7 +65,14 @@ const UserBox = () => {
       >
         회원가입
       </Button>
-      {visibilityForSignin ? <SigninTab /> : <SignupTab />}
+      {visibilityForSignin ? (
+        <SigninTab
+          signinStatePassed={signinState}
+          liftUpSigninStateToUserBox={liftUpSigninStateToUserBox}
+        />
+      ) : (
+        <SignupTab />
+      )}
     </UserBoxWrapper>
   );
 };
