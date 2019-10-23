@@ -142,7 +142,7 @@ const CostPicker = ({
     handleCostChange(minCost, maxCost);
     setLeftPos(getLeftPos(minCost));
     setRightPos(getRightPos(maxCost));
-    if (minCost != 12000 || maxCost != 1000000) {
+    if (+minCost !== 12000 || +maxCost !== 1000000) {
       setVisibilityForDelete(true);
     } else {
       setVisibilityForDelete(false);

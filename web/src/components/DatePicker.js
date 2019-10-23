@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../styles";
-import arrowImage from "../assets/images/arrow.png";
 import "react-dates/initialize";
 import { DayPickerRangeController } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";

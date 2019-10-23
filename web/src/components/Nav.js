@@ -4,6 +4,7 @@ import styles from "../styles";
 import DatePicker from "./DatePicker.js";
 import PersonnelPicker from "./PersonnelPicker.js";
 import CostPicker from "./CostPicker.js";
+import util from "../utils";
 
 const NavWrapper = styled.div`
   position: relative;
@@ -92,14 +93,16 @@ const Nav = ({ liftUpNavModalControl }) => {
   }, [adultCount, childCount, infantCount]);
   useEffect(() => {
     let costMessage = "";
-    if (minCost == 12000 && maxCost == 1000000) {
+    if (+minCost === 12000 && +maxCost === 1000000) {
       costMessage = "가격";
-    } else if (minCost == 12000) {
-      costMessage = `최대 ${maxCost}원`;
-    } else if (maxCost == 1000000) {
-      costMessage = `${minCost}원+`;
+    } else if (+minCost === 12000) {
+      costMessage = `최대 ${util.convertCostToCurrencyFormat(maxCost)}원`;
+    } else if (+maxCost === 1000000) {
+      costMessage = `${util.convertCostToCurrencyFormat(minCost)}원+`;
     } else {
-      costMessage = `${minCost}원 - ${maxCost}원`;
+      costMessage = `${util.convertCostToCurrencyFormat(
+        minCost
+      )}원 - ${util.convertCostToCurrencyFormat(maxCost)}원`;
     }
     setCostInfo(costMessage);
   }, [minCost, maxCost]);

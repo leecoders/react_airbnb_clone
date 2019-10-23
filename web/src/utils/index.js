@@ -9,6 +9,15 @@ export const util = {
   getCostPortionByRange: range => {
     const portion = range / 320;
     return portion > 1 ? 1 : portion;
+  },
+  convertCostToCurrencyFormat: cost => {
+    let rev = (cost + "").split("").reverse();
+    let result = [];
+    for (let i = 0; i < rev.length; ++i) {
+      if (i !== 0 && i % 3 === 0) result.push(",");
+      result.push(rev[i]);
+    }
+    return result.reverse().join("");
   }
 };
 
