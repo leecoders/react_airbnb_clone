@@ -8,6 +8,7 @@ const corsOptions = require("./config/cors.js");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const roomsRouter = require("./routes/rooms");
 
 const app = express();
 require("dotenv").config();
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/rooms", roomsRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
