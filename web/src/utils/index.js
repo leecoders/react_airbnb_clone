@@ -18,6 +18,15 @@ export const util = {
       result.push(rev[i]);
     }
     return result.reverse().join("");
+  },
+  parseDateInfo: dateInfo => {
+    console.log(dateInfo);
+  },
+  parsePersonnelInfo: personnelInfo => {
+    console.log(personnelInfo);
+  },
+  parsePersonnelInfo: costInfo => {
+    console.log(costInfo);
   }
 };
 

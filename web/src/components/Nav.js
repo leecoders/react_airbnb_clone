@@ -72,8 +72,9 @@ const Nav = ({ liftUpFilterInfo, liftUpNavModalControl }) => {
   const [maxCost, setMaxCost] = useState(1000000);
 
   useEffect(() => {
-    liftUpFilterInfo(dateInfo, personnelInfo, costInfo);
-  }, [dateInfo, personnelInfo, costInfo]);
+    // 바로 state가 lift up되면 필터가 바로 적용되어 section 리렌더링 너무 빈번히 일어남
+    if (!checkModalOn()) liftUpFilterInfo(dateInfo, personnelInfo, costInfo);
+  }, [visibilityForDate, visibilityForPersonnel, visibilityForCost]);
   useEffect(() => {
     let infoMessage = "";
     if (!checkInDate && !checkOutDate) {
