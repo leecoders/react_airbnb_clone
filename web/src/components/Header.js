@@ -4,6 +4,7 @@ import styles from "../styles";
 import logoImage from "../assets/images/logo.png";
 import userImage from "../assets/images/user.png";
 import UserBox from "./UserBox.js";
+import { fetchCheckCookie } from "../utils/fetch.js";
 
 const HeaderWrapper = styled.div`
   position: relative;
@@ -61,11 +62,19 @@ const BackgroundShadow = styled.div`
 const Header = ({ handleHeaderMenuClick }) => {
   const [visibilityForUserBox, setVisibilityForUserBox] = useState(false);
   const [signinState, setSigninState] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    console.log(signinState);
+    (async () => {
+      const result = await fetchCheckCookie();
+      if (result.message === "success") {
+        setUserId(result.data.userId);
+        setSigninState(true); // needed when Header mount
+      } else {
+        setUserId("로그인되지 않았습니다.");
+      }
+    })();
   }, [signinState]);
-
   const liftUpSigninStateToHeader = signinStatePassed => {
     setSigninState(signinStatePassed);
   };
@@ -77,7 +86,7 @@ const Header = ({ handleHeaderMenuClick }) => {
         에어비앤비
       </Title>
       <UserContainer>
-        <span>camper</span>
+        <span>{userId}</span>
         <span> 님</span>
         <UserButton
           onClick={() => {

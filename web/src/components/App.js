@@ -17,6 +17,9 @@ const HeaderContainer = styled.div`
 
 const App = () => {
   let closeNavModal;
+  const liftUpFilterInfo = ({ dateInfo, personnelInfo, costInfo }) => {
+    console.log(dateInfo, personnelInfo, costInfo);
+  };
   const liftUpNavModalControl = setAllToFalse => {
     closeNavModal = setAllToFalse;
   };
@@ -27,7 +30,10 @@ const App = () => {
     <AppWrapper>
       <HeaderContainer>
         <Header handleHeaderMenuClick={handleHeaderMenuClick} />
-        <Nav liftUpNavModalControl={liftUpNavModalControl} />
+        <Nav
+          liftUpFilterInfo={liftUpFilterInfo}
+          liftUpNavModalControl={liftUpNavModalControl}
+        />
       </HeaderContainer>
       <Section />
     </AppWrapper>

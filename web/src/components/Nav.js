@@ -53,7 +53,7 @@ const BackgroundShadow = styled.div`
   background: rgba(255, 255, 255, 0.85);
 `;
 
-const Nav = ({ liftUpNavModalControl }) => {
+const Nav = ({ liftUpFilterInfo, liftUpNavModalControl }) => {
   const [visibilityForDate, setVisibilityForDate] = useState(false);
   const [visibilityForPersonnel, setVisibilityForPersonnel] = useState(false);
   const [visibilityForCost, setVisibilityForCost] = useState(false);
@@ -71,6 +71,9 @@ const Nav = ({ liftUpNavModalControl }) => {
   const [minCost, setMinCost] = useState(12000);
   const [maxCost, setMaxCost] = useState(1000000);
 
+  useEffect(() => {
+    liftUpFilterInfo(dateInfo, personnelInfo, costInfo);
+  }, [dateInfo, personnelInfo, costInfo]);
   useEffect(() => {
     let infoMessage = "";
     if (!checkInDate && !checkOutDate) {

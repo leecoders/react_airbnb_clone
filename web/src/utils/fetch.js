@@ -1,5 +1,18 @@
 import { fetchUrl } from "../configs/fetch.js";
 
+const fetchCheckCookie = () => {
+  return fetch(fetchUrl + "users/check-cookie", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(response => response)
+    .catch(error => "error");
+};
+
 const fetchSignInResult = (id, password) => {
   return fetch(fetchUrl + "users/signin", {
     method: "POST",
@@ -28,4 +41,4 @@ const fetchSignUpResult = (id, password, name) => {
     .catch(error => "error");
 };
 
-export { fetchSignInResult, fetchSignUpResult };
+export { fetchCheckCookie, fetchSignInResult, fetchSignUpResult };

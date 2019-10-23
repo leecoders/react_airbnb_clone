@@ -9,6 +9,16 @@ const createToken = id => {
   });
 };
 
+const checkCookie = (req, res) => {
+  const token = req.cookies.user;
+  const decoded = jwt.verify(token, secretObj.secret);
+  if (decoded) {
+    res.json({ message: "success", data: { userId: decoded.userId } });
+  } else {
+    res.json({ message: "failure" });
+  }
+};
+
 const createUser = (id, password, name, res) => {
   models.User.create({
     userId: id,
@@ -46,6 +56,7 @@ const signin = (id, password, res) => {
 };
 
 module.exports = {
+  checkCookie,
   createUser,
   signin
 };
