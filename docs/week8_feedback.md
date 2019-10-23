@@ -68,3 +68,8 @@ useEffect(() => {
   })();
 }, [signinState]);
 ```
+
+### reace에서 setState를 실행하더라도 react가 알아서 state가 변경되었을 때만 리렌더링 하도록 최적화되어 있다.
+
+- 하지만!! state가 객체인 경우 js에서 객체는 레퍼런스 비교이기 때문에 전과 후의 객체의 내용이 같더라도 react가 같은 객체로 판단하지 못한다.
+- 해결 : `JSON.stringify()`를 통해 비교해서 객체 내부 값이 달라졌을 때만 setState를 호출하도록 해야한다.
