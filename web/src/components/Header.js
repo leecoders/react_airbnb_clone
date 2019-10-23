@@ -71,7 +71,7 @@ const Header = ({ handleHeaderMenuClick }) => {
         setUserId(result.data.userId);
         setSigninState(true); // needed when Header mount
       } else {
-        setUserId("로그인되지 않았습니다.");
+        setUserId("비회원");
       }
     })();
   }, [signinState]);
@@ -86,8 +86,7 @@ const Header = ({ handleHeaderMenuClick }) => {
         에어비앤비
       </Title>
       <UserContainer>
-        <span>{userId}</span>
-        <span> 님</span>
+        <span>{userId} 님</span>
         <UserButton
           onClick={() => {
             handleHeaderMenuClick();
