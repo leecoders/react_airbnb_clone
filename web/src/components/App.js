@@ -32,9 +32,16 @@ const App = () => {
     personnelInfoPassed,
     costInfoPassed
   ) => {
-    setDateInfo(util.parseDateInfo(dateInfoPassed));
-    setPersonnelInfo(util.parsePersonnelInfo(personnelInfoPassed));
-    setCostInfo(util.parsePersonnelInfo(costInfoPassed));
+    const dateInfoParsed = util.parseDateInfo(dateInfoPassed);
+    const personnelInfoParsed = util.parsePersonnelInfo(personnelInfoPassed);
+    const costInfoParsed = util.parseCostInfo(costInfoPassed);
+    // 실제 변경 사항이 있을 때만 setState
+    if (JSON.stringify(dateInfo) !== JSON.stringify(dateInfoParsed))
+      setDateInfo(dateInfoParsed);
+    if (JSON.stringify(personnelInfo) !== JSON.stringify(personnelInfoParsed))
+      setPersonnelInfo(personnelInfoParsed);
+    if (JSON.stringify(costInfo) !== JSON.stringify(costInfoParsed))
+      setCostInfo(costInfoParsed);
   };
   const liftUpNavModalControl = setAllToFalse => {
     closeNavModal = setAllToFalse;
