@@ -8,7 +8,6 @@ import styles from "../styles";
 const AppWrapper = styled.div`
   ${styles.handWrittenFontFace};
 `;
-
 const HeaderContainer = styled.div`
   z-index: 99;
   position: fixed;

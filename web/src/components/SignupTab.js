@@ -56,10 +56,10 @@ const SubmitButton = styled.button`
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   &:hover {
-    opacity: 0.9;
+    background: ${styles.hoverPrimaryColor};
   }
   &:active {
-    opacity: 0.8;
+    background: ${styles.activePrimaryColor};
   }
 `;
 const FlashMessageContainer = styled.div`

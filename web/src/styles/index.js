@@ -14,7 +14,8 @@ export const styles = {
   textColor: `#484848`,
   buttonHoverColor: `#f1f3f5`,
   primaryColor: `#38d9a9`,
-  hoverPrimaryColor: `#12b886`
+  hoverPrimaryColor: `#12b886`,
+  activePrimaryColor: `#0ca678`
 };
 
 export default styles;

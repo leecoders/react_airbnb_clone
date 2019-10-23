@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../styles";
+import { fetchSignInResult } from "../utils/fetch.js";
 
 const SigninTabWrapper = styled.div`
   z-index: 102;
@@ -69,22 +70,94 @@ const FlashMessageContainer = styled.div`
   margin: 0 auto;
   color: ${styles.titleColor};
 `;
+const SignoutContainer = styled.div`
+  position: relative;
+  top: 8rem;
+  margin: 0 auto;
+  width: 40rem;
+  height: auto;
+`;
+const SignoutWrapper = styled.div`
+  position: relative;
+  margin: 0 auto;
+  width: 20rem;
+  text-align: center;
+  font-size: 3rem;
+`;
+const SignoutButton = styled.button`
+  position: relative;
+  top: 5rem;
+  width: 32.2rem;
+  height: 4rem;
+  border: 1px solid ${styles.borderColor};
+  border-radius: 0.4rem;
+  font-family: "KimNamyun", sans-serif;
+  font-size: 2rem;
+  outline: none;
+  color: #ffffff;
+  background: ${styles.primaryColor};
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  &:hover {
+    background: ${styles.hoverPrimaryColor};
+  }
+  &:active {
+    background: ${styles.activePrimaryColor};
+  }
+`;
 
 const SigninTab = () => {
+  const [id, setId] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
+  const [signinState, setSigninState] = useState(false);
+  const [failureMessage, setFailureMessage] = useState("");
+
+  const signin = async () => {
+    const result = await fetchSignInResult(id, password);
+    if (result.message === "success") {
+      setSigninState(true);
+    } else {
+      setFailureMessage("사용자 정보를 다시 확인해주세요.");
+    }
+  };
   return (
     <SigninTabWrapper>
-      <FormContainer>
-        <InputWrapper>
-          <Input placeholder={"아이디"} />
-        </InputWrapper>
-        <InputWrapper>
-          <Input placeholder={"비밀번호"} />
-        </InputWrapper>
-        <FlashMessageContainer>
-          사용자 정보를 다시 확인해주세요.
-        </FlashMessageContainer>
-        <SubmitButton>로그인</SubmitButton>
-      </FormContainer>
+      {!signinState ? (
+        <FormContainer>
+          <InputWrapper>
+            <Input
+              onChange={e => {
+                setId(e.target.value);
+              }}
+              placeholder={"아이디"}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              onChange={e => {
+                setPassword(e.target.value);
+              }}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
+                  signin();
+                }
+              }}
+              placeholder={"비밀번호"}
+            />
+          </InputWrapper>
+          {!!failureMessage && (
+            <FlashMessageContainer>{failureMessage}</FlashMessageContainer>
+          )}
+          <SubmitButton onClick={signin}>로그인</SubmitButton>
+        </FormContainer>
+      ) : (
+        <SignoutContainer>
+          <SignoutWrapper>
+            <div>로그인 되었습니다.</div>
+          </SignoutWrapper>
+          <SignoutButton>로그아웃</SignoutButton>
+        </SignoutContainer>
+      )}
     </SigninTabWrapper>
   );
 };
