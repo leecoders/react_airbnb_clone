@@ -41,4 +41,22 @@ const fetchSignUpResult = (id, password, name) => {
     .catch(error => "error");
 };
 
-export { fetchCheckCookie, fetchSignInResult, fetchSignUpResult };
+const fetchGetRooms = () => {
+  return fetch(fetchUrl + "rooms/get-rooms", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(response => response)
+    .catch(error => "error");
+};
+
+export {
+  fetchCheckCookie,
+  fetchSignInResult,
+  fetchSignUpResult,
+  fetchGetRooms
+};

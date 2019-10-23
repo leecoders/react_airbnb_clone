@@ -17,14 +17,14 @@ const HeaderContainer = styled.div`
 `;
 
 const App = () => {
-  const [dateInfo, setDateInfo] = useState({});
-  const [personnelInfo, setPersonnelInfo] = useState({});
-  const [costInfo, setCostInfo] = useState({});
+  const [dateInfo, setDateInfo] = useState();
+  const [personnelInfo, setPersonnelInfo] = useState();
+  const [costInfo, setCostInfo] = useState();
 
   let closeNavModal;
 
   useEffect(() => {
-    console.log(dateInfo, personnelInfo, costInfo);
+    // 최초 마운트, 필터링 결과 update -> section 리렌더링해야 함
   }, [dateInfo, personnelInfo, costInfo]);
 
   const liftUpFilterInfo = (
@@ -58,7 +58,11 @@ const App = () => {
           liftUpNavModalControl={liftUpNavModalControl}
         />
       </HeaderContainer>
-      <Section />
+      <Section
+        dateInfo={dateInfo}
+        personnelInfo={personnelInfo}
+        costInfo={costInfo}
+      />
     </AppWrapper>
   );
 };
