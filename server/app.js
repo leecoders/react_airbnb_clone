@@ -11,7 +11,6 @@ const usersRouter = require("./routes/users");
 const roomsRouter = require("./routes/rooms");
 
 const app = express();
-require("dotenv").config();
 
 app.set("views", path.join(__dirname, "views"));
 

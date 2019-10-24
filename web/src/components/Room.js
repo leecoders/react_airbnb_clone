@@ -71,7 +71,6 @@ const ReserveButton = styled.button`
 `;
 
 const Room = ({ room }) => {
-  console.log(room);
   return (
     <RoomWrapper>
       <RoomImage src={room.images}></RoomImage>

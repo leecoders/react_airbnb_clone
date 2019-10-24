@@ -64,11 +64,11 @@ export const util = {
         .split(",")
         .join("");
     } else if (costInfo.indexOf("-") !== -1) {
-      ret.maxCost = +costInfo
+      ret.minCost = +costInfo
         .split("원 - ")[0]
         .split(",")
         .join("");
-      ret.minCost = +costInfo
+      ret.maxCost = +costInfo
         .split("원 - ")[1]
         .split("원")[0]
         .split(",")

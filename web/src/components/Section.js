@@ -9,7 +9,6 @@ import arrowBottomImage from "../assets/images/arrow_bottom.png";
 const SectionWrapper = styled.div`
   position: relative;
   top: 11.4rem;
-  height: 505rem;
   background: #ffffff;
   font-family: "KimNamyun", sans-serif;
   font-size: 2rem;
@@ -29,6 +28,7 @@ const RoomsWrapper = styled.div`
   position: relative;
   margin-top: 1rem;
   width: auto;
+  min-height: 150rem;
 `;
 const RoomContainer = styled.div`
   position: relative;
@@ -67,6 +67,7 @@ const ViewMoreButton = styled.button`
 `;
 
 const Section = ({ dateInfo, personnelInfo, costInfo }) => {
+  const [roomsData, setRoomsData] = useState();
   const [rooms, setRooms] = useState();
   const [scrollLimit, setScrollLimit] = useState(20);
 
@@ -75,11 +76,35 @@ const Section = ({ dateInfo, personnelInfo, costInfo }) => {
       const result = await fetchGetRooms();
       if (result.message === "success") {
         if (JSON.stringify(rooms) !== JSON.stringify(result.data.rooms)) {
+          setRoomsData(result.data.rooms);
           setRooms(result.data.rooms);
         }
       }
     })();
-  }, [rooms]);
+  }, []);
+  useEffect(() => {
+    if (!costInfo || !roomsData) return;
+    const min = costInfo.minCost ? costInfo.minCost : -1234567890;
+    const max = costInfo.maxCost ? costInfo.maxCost : 1234567890;
+    let newRooms = [];
+    for (const room of roomsData) {
+      if (min <= room.price * 1172 && room.price * 1172 <= max) {
+        newRooms.push(room);
+      }
+    }
+    setRooms(newRooms);
+  }, [costInfo]);
+  useEffect(() => {
+    if (!personnelInfo || !roomsData) return;
+    const guest = personnelInfo.guest;
+    let newRooms = [];
+    for (const room of roomsData) {
+      if (guest <= room.capacity) {
+        newRooms.push(room);
+      }
+    }
+    setRooms(newRooms);
+  }, [personnelInfo]);
 
   return (
     <SectionWrapper>
