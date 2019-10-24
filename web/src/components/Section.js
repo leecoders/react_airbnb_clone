@@ -83,28 +83,22 @@ const Section = ({ dateInfo, personnelInfo, costInfo }) => {
     })();
   }, []);
   useEffect(() => {
-    if (!costInfo || !roomsData) return;
-    const min = costInfo.minCost ? costInfo.minCost : -1234567890;
-    const max = costInfo.maxCost ? costInfo.maxCost : 1234567890;
+    if (!roomsData) return;
+    const min = !costInfo || !costInfo.minCost ? -1234567890 : costInfo.minCost;
+    const max = !costInfo || !costInfo.maxCost ? 1234567890 : costInfo.maxCost;
+    const guest = !personnelInfo ? 0 : personnelInfo.guest;
     let newRooms = [];
     for (const room of roomsData) {
-      if (min <= room.price * 1172 && room.price * 1172 <= max) {
+      if (
+        min <= room.price * 1172 &&
+        room.price * 1172 <= max &&
+        guest <= room.capacity
+      ) {
         newRooms.push(room);
       }
     }
     setRooms(newRooms);
-  }, [costInfo]);
-  useEffect(() => {
-    if (!personnelInfo || !roomsData) return;
-    const guest = personnelInfo.guest;
-    let newRooms = [];
-    for (const room of roomsData) {
-      if (guest <= room.capacity) {
-        newRooms.push(room);
-      }
-    }
-    setRooms(newRooms);
-  }, [personnelInfo]);
+  }, [costInfo, personnelInfo]);
 
   return (
     <SectionWrapper>
