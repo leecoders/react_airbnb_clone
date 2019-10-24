@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { fetchGetRooms } from "../utils/fetch.js";
 import Room from "./Room.js";
+import Footer from "./Footer.js";
+import styles from "../styles/index.js";
+import arrowBottomImage from "../assets/images/arrow_bottom.png";
 
 const SectionWrapper = styled.div`
   position: relative;
@@ -13,27 +16,59 @@ const SectionWrapper = styled.div`
 `;
 const RoomsCounterContainer = styled.div`
   position: relative;
-  padding-top: 3rem;
-  padding-left: 2rem;
-  width: 30rem;
+  width: 100%;
+  height: 10rem;
+  line-height: 10rem;
+  text-align: center;
   font-size: 3.5rem;
   font-weight: bold;
+  background: #f7f7f7;
+  border-bottom: 0.1rem solid ${styles.borderColor};
 `;
 const RoomsWrapper = styled.div`
   position: relative;
   margin-top: 1rem;
-  width: 100%;
+  width: auto;
 `;
 const RoomContainer = styled.div`
   position: relative;
   top: 1rem;
-  padding: 1rem;
-  margin: 1rem auto;
-  border: 1px solid black;
+  margin: 0 auto;
+  width: 90rem;
+  padding: 2rem 0;
+  ${props => (!!props.idx ? "border-top: 1px solid " + styles.borderColor : "")}
+`;
+const ViewMoreButtonContainer = styled.div`
+  position: relative;
+  margin: 0 auto;
+  width: 90rem;
+  height: 10rem;
+  text-align: center;
+`;
+const ViewMoreButton = styled.button`
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  width: 5rem;
+  height: 4rem;
+  background: url(${arrowBottomImage}) no-repeat 50% 50%;
+  background-size: 5rem 4rem;
+  outline: none;
+  border: none;
+  opacity: 0.6;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 1;
+  }
 `;
 
 const Section = ({ dateInfo, personnelInfo, costInfo }) => {
   const [rooms, setRooms] = useState();
+  const [scrollLimit, setScrollLimit] = useState(20);
 
   useEffect(() => {
     (async () => {
@@ -49,7 +84,16 @@ const Section = ({ dateInfo, personnelInfo, costInfo }) => {
   return (
     <SectionWrapper>
       {!rooms ? (
-        <div>로딩중</div>
+        <div
+          style={{
+            position: "relative",
+            top: "5rem",
+            textAlign: "center",
+            fontSize: "3rem"
+          }}
+        >
+          로딩중..
+        </div>
       ) : (
         <RoomsCounterContainer>
           숙소 {rooms ? rooms.length : 0}개
@@ -58,13 +102,24 @@ const Section = ({ dateInfo, personnelInfo, costInfo }) => {
       <RoomsWrapper>
         {rooms &&
           rooms.map((room, idx) => {
+            if (idx > scrollLimit) return;
             return (
-              <RoomContainer>
-                <Room room={room} key={idx} />
+              <RoomContainer key={room.id} idx={idx}>
+                <Room room={room} key={room.id} />
               </RoomContainer>
             );
           })}
       </RoomsWrapper>
+      {rooms && scrollLimit + 10 < rooms.length && (
+        <ViewMoreButtonContainer>
+          <ViewMoreButton
+            onClick={() => {
+              setScrollLimit(scrollLimit + 10);
+            }}
+          />
+        </ViewMoreButtonContainer>
+      )}
+      <Footer />
     </SectionWrapper>
   );
 };

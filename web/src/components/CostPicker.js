@@ -47,7 +47,7 @@ const RangeSliderBarBetweenButtons = styled.div`
 `;
 const RangeButton = styled.button`
   position: absolute;
-  left: ${props => props.left + "px"}
+  left: ${props => props.left + "px"};
   top: 0;
   width: 3rem;
   height: 3rem;
@@ -69,7 +69,7 @@ const CostInputContainer = styled.div`
 const CostInputWrapper = styled.div`
   position: absolute;
   display: inline-block;
-  ${props => (props.isLeft ? "left: 0" : "right: 0")}
+  ${props => (props.isLeft ? "left: 0" : "right: 0")};
   width: 14.2rem;
   height: 4rem;
   border: 1px solid

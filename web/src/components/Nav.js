@@ -47,7 +47,7 @@ const Button = styled.button`
 const BackgroundShadow = styled.div`
   position: fixed;
   top: 4.1rem;
-  display: ${props => (props.isModalOn ? "block" : "none")}
+  display: ${props => (props.isModalOn ? "block" : "none")};
   width: 500rem;
   height: 500rem;
   background: rgba(255, 255, 255, 0.85);
